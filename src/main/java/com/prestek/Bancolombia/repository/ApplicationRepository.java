@@ -1,7 +1,7 @@
 package com.prestek.Bancolombia.repository;
 
-import com.prestek.Bancolombia.model.Application;
-import com.prestek.Bancolombia.model.Application.ApplicationStatus;
+
+import com.prestek.FinancialEntityCore.model.Application;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -20,7 +20,7 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
     // JPQL explícito usando los campos escalares
     @Query("SELECT a FROM Application a WHERE a.userId = :userId AND a.status = :status")
     List<Application> findByUserIdAndStatus(@Param("userId") String userId,
-                                            @Param("status") ApplicationStatus status);
+                                            @Param("status") Application.ApplicationStatus status);
 
 //    @Query("SELECT a FROM Application a WHERE a.creditOfferId = :creditOfferId AND a.status = :status")
 //    List<Application> findByCreditOfferIdAndStatus(@Param("creditOfferId") Long creditOfferId,

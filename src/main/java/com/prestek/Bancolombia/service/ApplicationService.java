@@ -5,12 +5,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.prestek.FinancialEntityCore.dto.ApplicationDto;
+import com.prestek.FinancialEntityCore.model.Application;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.prestek.Bancolombia.dto.ApplicationDto;
-import com.prestek.Bancolombia.model.Application;
-import com.prestek.Bancolombia.model.Application.ApplicationStatus;
+
 import com.prestek.Bancolombia.repository.ApplicationRepository;
 //import com.prestek.coltefinanciera.repository.CreditOfferRepository;
 //import com.prestek.coltefinanciera.repository.UserRepository;
@@ -58,7 +58,7 @@ public class ApplicationService {
 //                .collect(Collectors.toList());
 //    }
 
-    public List<ApplicationDto> getApplicationsByStatus(ApplicationStatus status) {
+    public List<ApplicationDto> getApplicationsByStatus(Application.ApplicationStatus status) {
         log.info("Fetching applications with status: {}", status);
         return applicationRepository.findByStatus(status)
                 .stream()
@@ -83,7 +83,7 @@ public class ApplicationService {
                 .userId(userId)
 //                .creditOffer(creditOffer)
                 .amount(amount)
-                .status(ApplicationStatus.PENDING)
+                .status(Application.ApplicationStatus.PENDING)
                 .applicationDate(LocalDateTime.now())
                 .build();
 
@@ -93,27 +93,27 @@ public class ApplicationService {
         return convertToDto(savedApplication);
     }
 
-    public Optional<ApplicationDto> updateApplicationStatus(Long id, ApplicationStatus newStatus, String notes) {
+    public Optional<ApplicationDto> updateApplicationStatus(Long id, Application.ApplicationStatus newStatus, String notes) {
         log.info("Updating application {} status to: {}", id, newStatus);
 
         return applicationRepository.findById(id)
                 .map(application -> {
-                    ApplicationStatus oldStatus = application.getStatus();
+                    Application.ApplicationStatus oldStatus = application.getStatus();
                     application.setStatus(newStatus);
                     application.setNotes(notes);
 
                     // Set review date when moving to UNDER_REVIEW
-                    if (newStatus == ApplicationStatus.UNDER_REVIEW && oldStatus != ApplicationStatus.UNDER_REVIEW) {
+                    if (newStatus == Application.ApplicationStatus.UNDER_REVIEW && oldStatus != Application.ApplicationStatus.UNDER_REVIEW) {
                         application.setReviewDate(LocalDateTime.now());
                     }
 
                     // Set approval date when approved
-                    if (newStatus == ApplicationStatus.APPROVED && oldStatus != ApplicationStatus.APPROVED) {
+                    if (newStatus == Application.ApplicationStatus.APPROVED && oldStatus != Application.ApplicationStatus.APPROVED) {
                         application.setApprovalDate(LocalDateTime.now());
                     }
 
                     // Set rejection reason when rejected
-                    if (newStatus == ApplicationStatus.REJECTED) {
+                    if (newStatus == Application.ApplicationStatus.REJECTED) {
                         application.setRejectionReason(notes);
                     }
 

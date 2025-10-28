@@ -1,9 +1,10 @@
 package com.prestek.Bancolombia.controller;
 
 
-import com.prestek.Bancolombia.service.AbstractWeightedQuoteService;
-import com.prestek.Bancolombia.dto.QuoteDto;
-import com.prestek.Bancolombia.request.QuoteRequest;
+
+import com.prestek.FinancialEntityCore.dto.QuoteDto;
+import com.prestek.FinancialEntityCore.request.QuoteRequest;
+import com.prestek.FinancialEntityCore.service.AbstractWeightedQuoteService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;

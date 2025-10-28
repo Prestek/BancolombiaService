@@ -3,7 +3,9 @@ package com.prestek.Bancolombia.controller;
 import java.util.List;
 import java.util.Map;
 
-import com.prestek.Bancolombia.request.CreateApplicationRequest;
+import com.prestek.FinancialEntityCore.dto.ApplicationDto;
+import com.prestek.FinancialEntityCore.model.Application;
+import com.prestek.FinancialEntityCore.request.CreateApplicationRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,8 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.prestek.Bancolombia.dto.ApplicationDto;
-import com.prestek.Bancolombia.model.Application.ApplicationStatus;
 import com.prestek.Bancolombia.service.ApplicationService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -110,7 +110,7 @@ public class ApplicationController {
     })
     public ResponseEntity<List<ApplicationDto>> getApplicationsByStatus(
             @Parameter(description = "Application status", required = true, example = "PENDING")
-            @PathVariable ApplicationStatus status) {
+            @PathVariable Application.ApplicationStatus status) {
         log.info("GET /api/applications/status/{} - Fetching applications by status", status);
         List<ApplicationDto> applications = applicationService.getApplicationsByStatus(status);
         return ResponseEntity.ok(applications);
@@ -174,7 +174,7 @@ public class ApplicationController {
         }
 
         try {
-            ApplicationStatus status = ApplicationStatus.valueOf(statusStr);
+            Application.ApplicationStatus status = Application.ApplicationStatus.valueOf(statusStr);
             return applicationService.updateApplicationStatus(id, status, notes)
                     .map(application -> ResponseEntity.ok(application))
                     .orElse(ResponseEntity.notFound().build());
