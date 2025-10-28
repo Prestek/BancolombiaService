@@ -12,8 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import com.prestek.Bancolombia.repository.ApplicationRepository;
-//import com.prestek.coltefinanciera.repository.CreditOfferRepository;
-//import com.prestek.coltefinanciera.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
