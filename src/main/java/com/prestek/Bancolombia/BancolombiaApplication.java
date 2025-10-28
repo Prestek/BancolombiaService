@@ -7,9 +7,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DaviviendaApplication {
+public class BancolombiaApplication {
 
-	private static final Logger logger = LoggerFactory.getLogger(DaviviendaApplication.class);
+	private static final Logger logger = LoggerFactory.getLogger(BancolombiaApplication.class);
 
 	public static void main(String[] args) {
 		// Load environment variables from .env file only if not already set
@@ -25,6 +25,6 @@ public class DaviviendaApplication {
 		} catch (Exception e) {
 			// Continue without .env file
 		}
-		SpringApplication.run(DaviviendaApplication.class, args);
+		SpringApplication.run(BancolombiaApplication.class, args);
 	}
 }
