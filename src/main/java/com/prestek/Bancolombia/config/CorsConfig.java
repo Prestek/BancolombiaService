@@ -40,8 +40,8 @@ public class CorsConfig implements WebMvcConfigurer {
         config.setAllowCredentials(true);
         // Combine HTTP and HTTPS origins
         List<String> allOrigins = Arrays.asList(
-                        allowedOriginsHttp.split(","),
-                        allowedOriginsHttps.split(",")).stream()
+                allowedOriginsHttp.split(","),
+                allowedOriginsHttps.split(",")).stream()
                 .flatMap(Arrays::stream)
                 .toList();
         config.setAllowedOrigins(allOrigins);
